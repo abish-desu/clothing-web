@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+h {
+    text-decoration: none;
+    font-size: 30px;
+    font-family: Brush Script MT;
+    color: #b67352;
+}
+
+h1 {
+    font-size: 50px;
+    line-height: 64px;
+    color: #222;
+}
+
+h2 {
+    font-size: 46px;
+    line-height: 64px;
+    color: #222;
+}
+
+h4 {
+    font-size: 20px;
+    color: #222;
+}
+
+h6 {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+p {
+    padding: 20px;
+    font-size: 16px;
+    color: #465b52;
+    margin: 15px o 20px 0;
+}
+
+.section-p1 {
+    padding: 40px 80px;
+}
+
+.section-m1 {
+    margin: 40px 0;
+}
+
+body {
+    width: 100%;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 70px;
+    background: white;
+    box-shadow: 0 5px 12px lavender;
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar li {
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+}
+
+#navbar li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    transition: 0.3s ease;
+}
+
+#navbar li a:hover,
+#navbar li a.active {
+    color: #b67352;
+}
+
+#navbar li a.active::after,
+#navbar li a:hover::after {
+    content: "";
+    width: 30%;
+    height: 2px;
+    background: #b67352;
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+}
+
+#hero {
+    background-image: url("../images/bg4.jpg");
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top 10% right 0%;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* background-position: bottom; */
+}
+#hero h1 {
+    padding: 10px;
+    font-size: 45px;
+    font-weight: 200px;
+    /* color:#25a5e0; */
+    color: #b67352;
+}
+#hero .content {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(66, 66, 66);
+}
+
+#product1 {
+    text-align: center;
+}
+#product1 h2 {
+    font-weight: bold;
+    margin-top: 40px;
+    /* color: #B67352; */
+}
+#product1 .pro-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+#product1 .pro {
+    width: 23%;
+    min-height: 430px;
+    padding: 18px 12px;
+    border: 1px solid #cce7d0;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    margin: 15px 0;
+    transition: 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* #product1 .pro{
+    width: 23%;
+    max-height: 420px;
+    padding: 18px 12px ;
+    border: 1px solid #cce7d0;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    margin: 24px 0;
+    transition: 0.2s ease;
+    position: relative;
+} */
+
+#product1 .pro:hover {
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+}
+
+#product1 .pro img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#product1 .pro .des {
+    text-align: start;
+    padding-bottom: 55px;
+}
+
+/* #product1 .pro .des span{
+    color: #606063;
+    font-size: 12px;
+} */
+
+#product1 .pro .des h5 {
+    padding: 10px;
+    color: #1a1a1a;
+    font-size: 18px;
+}
+.star {
+    padding: 4px;
+}
+#product1 .pro .des i {
+    font-size: 16px;
+    color: #dbcb3c;
+    padding-left: 0px;
+    margin-left: 2px;
+}
+
+#product1 .pro .des h4 {
+    padding-top: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 6px;
+    padding-bottom: 10px;
+    color: #b67352;
+}
+
+#product1 .pro .cart {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50px;
+    background-color: #ffefe6;
+    font-weight: 500;
+    color: #ac5930;
+    border: 1px solid #ac5930;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+#product1 .pro .cart:hover {
+    background-color: #ac5930;
+    color: #faf8f7;
+}
+
+footer {
+    background-color: #101010;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    bottom: 0;
+}
