@@ -1,73 +1,77 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$uri = $_SERVER["REQUEST_URI"] ?? "";
+$parts = explode("/", $uri);
+$page = end($parts);
+$page = strtok($page, "?"); // strip query string
+
+function nav_active(string $target, string $current): string
+{
+    return $current === $target ? "active" : "";
+}
 ?>
 
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-
-          <?php 
-
-
-            $uri = $_SERVER['REQUEST_URI']; 
-            $uriAr = explode("/", $uri);
-            $page = end($uriAr);
-
-          ?>
-
-
-          <li class="nav-item">
-            <a class="nav-link <?php echo ($page == '' || $page == 'index.php') ? 'active' : ''; ?>" href="index.php">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
+<aside class="admin-sidebar">
+    <div class="admin-sidebar-section">Menu</div>
+    <ul>
+        <li>
+            <a href="index.php" class="<?php echo nav_active(
+                "index.php",
+                $page,
+            ) ?:
+                nav_active("", $page); ?>">
+                <i class="fas fa-home"></i> Dashboard
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'customer_orders.php') ? 'active' : ''; ?>" href="customer_orders.php">
-              <span data-feather="clipboard"></span>
-              Orders
+        </li>
+        <li>
+            <a href="customer_orders.php" class="<?php echo nav_active(
+                "customer_orders.php",
+                $page,
+            ); ?>">
+                <i class="fas fa-clipboard-list"></i> Orders
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'products.php') ? 'active' : ''; ?>" href="products.php">
-              <span data-feather="shopping-cart"></span>
-              Products
+        </li>
+        <li>
+            <a href="products.php" class="<?php echo nav_active(
+                "products.php",
+                $page,
+            ); ?>">
+                <i class="fas fa-box"></i> Products
             </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'add_products.php') ? 'active' : ''; ?>" href="add_products.php">
-              <span data-feather="shopping-cart"></span>
-               Add Products
+        </li>
+        <li>
+            <a href="add_products.php" class="<?php echo nav_active(
+                "add_products.php",
+                $page,
+            ); ?>">
+                <i class="fas fa-plus-circle"></i> Add Product
             </a>
-          </li>
+        </li>
+    </ul>
+</aside>
 
-          <!-- <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'account.php') ? 'active' : ''; ?>" href="account.php">
-              <span data-feather="shopping-cart"></span>
-              Account
-            </a>
-          </li> -->
-
-          <!-- <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'customers.php') ? 'active' : ''; ?>" href="customers.php">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li> -->
-        </ul>
-
-       
-      </div>
-    </nav>
-
-
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 ">Welcome back
-          <!-- <?php echo $_SESSION["admin_name"]; ?> -->
+<div class="admin-main">
+    <div class="admin-page-header">
+        <h1 class="admin-page-title">
+            <?php
+            $titles = [
+                "index.php" => "Dashboard",
+                "" => "Dashboard",
+                "customer_orders.php" => "Customer Orders",
+                "products.php" => "Products",
+                "add_products.php" => "Add Product",
+                "edit.php" => "Edit Product",
+                "order_details.php" => "Order Details",
+            ];
+            echo htmlspecialchars(
+                $titles[$page] ??
+                    ucfirst(str_replace([".php", "_"], ["", " "], $page)),
+                ENT_QUOTES,
+                "UTF-8",
+            );
+            ?>
         </h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-
-        </div>
-      </div>
+    </div>

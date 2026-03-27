@@ -18,22 +18,17 @@ if (!isset($featured_products)) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width-device-width, initial-scale=1.0">
         <title>Home</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-		<script src="js/jquery2.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="main.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
         <link rel="stylesheet" href="styleee.css">
     </head>
 
 <body>
 
-    <section id="header">
-        <img src="/PROJECT/images/l3.png" height="40" width="38"><a>
-        <!-- <h>Royal Butterfly</h> -->
-            <div>
-            <ul id="navbar">
+    <header id="header">
+        <a href="home.php" class="nav-logo">
+            <img src="/PROJECT/images/l3.png" alt="Royal Butterfly">
+        </a>
+        <ul id="navbar">
                 <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -44,27 +39,28 @@ if (!isset($featured_products)) {
                         $count = count($_SESSION["cart"]);
                     }
                     ?>
-                    <a href="mycart.php"><i class="bi bi-cart-plus" style="font-size: 21px;">(<?php echo $count; ?>)</i></a>
+                    <a href="mycart.php" class="cart-link">
+                        <i class="bi bi-cart3"></i>
+                        <?php if (
+                            $count > 0
+                        ): ?><span class="cart-count"><?php echo $count; ?></span><?php endif; ?>
+                    </a>
                 </li>
                 <!-- <li><a href="#" ><i class="bi bi-person-heart" style="font-size: 20px;"></i></a></li> -->
 
 
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo "Hi, " .
                     $_SESSION["name"]; ?></a>
-					<ul class="dropdown-menu">
-						<li><a href="cart.php" style="text-decoration:none; color:black;"><span class="glyphicon glyphicon-shopping-cart"> Cart</a></li>
-						<li class="divider"></li>
-						<li><a href="customer_order.php" style="text-decoration:none; color:black;">Orders</a></li>
-						<li class="divider"></li>
-
-						<li><a href="logout.php" style="text-decoration:none; color:black;">Logout</a></li>
-					</ul>
+                    <ul style="display:none;">
+                        <li><a href="mycart.php">Cart</a></li>
+                        <li><a href="customer_order.php">Orders</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
 				</li>
 
 
-            </ul>
-        </div>
-    </section>
+        </ul>
+    </header>
 
     <section id="hero">
         <h4>Escape The Ordinary</h4>

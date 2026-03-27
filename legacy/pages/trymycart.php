@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+include "connect.php";
 session_start();
 ?>
 
@@ -10,8 +10,7 @@ session_start();
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cart</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
         <link rel="stylesheet" href="styleee.css">
         <style>
             .container table{width: 100%;border:1px;}
@@ -36,7 +35,7 @@ session_start();
 
                     </li>
                 </ul>
-            </div>  
+            </div>
         </section>
 
         <div class="container">
@@ -59,18 +58,15 @@ session_start();
                         </thead>
 
                         <tbody class="text-center">
-                            <?php
-                            //  include('get_products.php');
+                            <?php //  include('get_products.php');
                             // $total = 0;
-                            if(isset($_SESSION['cart']))
-                            {
-                                foreach ($_SESSION['cart'] as $key => $value)
-                                {
-                                    $sr=$key+1;
+                            if (isset($_SESSION["cart"])) {
+                                foreach ($_SESSION["cart"] as $key => $value) {
+                                    $sr = $key + 1;
                                     // $total=$total+$value['Price'];
-                                    echo"
+                                    echo "
                                         <tr>
-                                            <td>$sr</td>    
+                                            <td>$sr</td>
                                             <td>$value[item_name]</td>
                                             <td><img src='/PROJECT/images/a1.jpg'>$value[item_name]</td>
                                             <td><span>Rs </span>$value[Price]<input type='hidden' class='iprice' value='$value[Price]'></td>
@@ -80,7 +76,7 @@ session_start();
                                                     <input type='hidden' name='item_name' value='$value[item_name]'>
                                                 </form>
                                             </td>
-                                            
+
                                             <td class='itotal'></td>
                                             <td>
                                                 <form action='manage_cart.php' method='POST'>
@@ -91,8 +87,7 @@ session_start();
                                         </tr>
                                     ";
                                 }
-                            }
-                            ?>
+                            } ?>
                         </tbody>
                     </table>
                 </div>
@@ -116,7 +111,7 @@ session_start();
             <div class="border bg-light rounded p-4">
                 <h4>Grand Total</h4>
                 <h5 class="text-right" id="gtotal"></h5>
-            
+
                 <form>
                     <button type="button" class="btn btn-primary">Checkout</button>
                 </form>
@@ -135,7 +130,7 @@ session_start();
                 gt=0;
                 for(i=0;i<iprice.length;i++)
                 {
-                    
+
                     itotal[i].innerText=(iprice[i].value)*(iquantity[i].value);
                     gt=gt+(iprice[i].value)*(iquantity[i].value);
                 }

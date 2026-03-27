@@ -19,8 +19,6 @@ $_SESSION["gTotal"] = $grandTotal;
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>My Cart</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="styleee.css">
         <style>
             .cart-table {
@@ -44,41 +42,39 @@ $_SESSION["gTotal"] = $grandTotal;
     </head>
 
     <body>
-        <section id="header">
-            <img src="/PROJECT/images/l3.png" height="40" width="38"><a></a>
-            <div>
-                <ul id="navbar">
+        <header id="header">
+            <a href="home.php" class="nav-logo">
+                <img src="/PROJECT/images/l3.png" alt="Royal Butterfly">
+            </a>
+            <ul id="navbar">
                     <li><a href="home.php">Home</a></li>
                     <li><a href="shop.php">Shop</a></li>
                     <li><a href="contact.php">Contact</a></li>
                     <?php if (isset($_SESSION["email"])) { ?>
                         <li><a href="customer_order.php">My Orders</a></li>
                     <?php } ?>
-                    <li><a class="active" href="mycart.php"><i class="bi bi-cart-plus-fill" style="font-size: 22px;"></i></a></li>
+                    <li><a class="active" href="mycart.php"><i class="bi bi-cart3"></i></a></li>
                     <li>
                         <?php if (isset($_SESSION["email"])) { ?>
-                            <a href="logout.php"><i class="bi bi-box-arrow-right" style="font-size: 22px;"></i> Logout</a>
+                            <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         <?php } else { ?>
-                            <a href="login.html"><i class="bi bi-person-fill" style="font-size: 22px;"></i> Login</a>
+                            <a href="login.html"><i class="bi bi-person-fill"></i> Login</a>
                         <?php } ?>
                     </li>
                 </ul>
-            </div>
-        </section>
+            </ul>
+        </header>
 
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-lg-12 text-center border rounded bg-light mb-4">
-                    <h2 class="py-3 mb-0">My Cart</h2>
-                </div>
-
-                <div class="col-lg-9">
+        <div style="padding: 40px 80px;">
+            <h2 style="font-weight:700; color:#222; margin-bottom:28px; font-size:28px;">My Cart</h2>
+            <div style="display:flex; gap:30px; align-items:flex-start;">
+                <div style="flex:1; min-width:0;">
                     <?php if (empty($cartItems)) { ?>
-                        <div class="alert alert-info text-center">
-                            Your cart is empty. <a href="shop.php">Continue shopping</a>.
+                        <div style="padding:40px 0; text-align:center; color:#666; font-size:15px;">
+                            Your cart is empty. <a href="shop.php" style="color:#b67352; font-weight:600;">Continue shopping</a>.
                         </div>
                     <?php } else { ?>
-                        <table class="table cart-table text-center align-middle">
+                        <table class="cart-table">
                             <thead>
                                 <tr>
                                     <th scope="col">SN</th>
@@ -116,7 +112,7 @@ $_SESSION["gTotal"] = $grandTotal;
                                         ); ?></td>
                                         <td>Rs <?php echo $price; ?></td>
                                         <td>
-                                            <form action="manage_cart.php" method="POST" class="d-inline">
+                                            <form action="manage_cart.php" method="POST">
                                                 <input
                                                     type="number"
                                                     class="text-center"
@@ -133,8 +129,8 @@ $_SESSION["gTotal"] = $grandTotal;
                                         </td>
                                         <td>Rs <?php echo $total; ?></td>
                                         <td>
-                                            <form action="manage_cart.php" method="POST" class="d-inline">
-                                                <button name="Remove_item" class="btn btn-sm btn-outline-danger">Remove</button>
+                                            <form action="manage_cart.php" method="POST">
+                                                <button name="Remove_item" class="btn-outline-danger">Remove</button>
                                                 <input type="hidden" name="item_name" value="<?php echo htmlspecialchars(
                                                     $itemName,
                                                 ); ?>">
@@ -146,27 +142,27 @@ $_SESSION["gTotal"] = $grandTotal;
                             </tbody>
                         </table>
                     <?php } ?>
-                </div>
+            </div>
 
-                <div class="col-lg-3">
-                    <div class="border bg-light rounded p-4">
-                        <h4>Grand Total: Rs <?php echo $grandTotal; ?></h4>
-                        <br>
+            <div style="width:280px; flex-shrink:0;">
+                <div class="grand-total-box">
+                    <h4>Grand Total</h4>
+                    <h5>Rs <?php echo $grandTotal; ?></h5>
 
-                        <?php if (!empty($cartItems)) { ?>
-                            <?php if (isset($_SESSION["email"])) { ?>
-                                <form action="checkout.php" method="POST">
-                                    <button type="submit" name="checkout" class="btn btn-primary w-100">Checkout</button>
-                                </form>
-                            <?php } else { ?>
-                                <a href="login.html" class="btn btn-primary w-100">Login to Checkout</a>
-                            <?php } ?>
+                    <?php if (!empty($cartItems)) { ?>
+                        <?php if (isset($_SESSION["email"])) { ?>
+                            <form action="checkout.php" method="POST">
+                                <button type="submit" name="checkout" class="btn" style="width:100%;">Checkout</button>
+                            </form>
                         <?php } else { ?>
-                            <a href="shop.php" class="btn btn-primary w-100">Go to Shop</a>
+                            <a href="login.html" class="btn" style="width:100%; display:block; text-align:center;">Login to Checkout</a>
                         <?php } ?>
-                    </div>
+                    <?php } else { ?>
+                        <a href="shop.php" class="btn" style="width:100%; display:block; text-align:center;">Go to Shop</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
+    </div>
     </body>
 </html>

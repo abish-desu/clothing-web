@@ -114,4 +114,6 @@ if (!isset($conn) || !$conn) {
     </div>
 <?php } ?>
 
+</div><!-- close admin-main -->
+
 <?php include "./templates/footer.php"; ?>

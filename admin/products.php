@@ -157,4 +157,6 @@ if ($conn) {
     </table>
 </div>
 
+</div><!-- close admin-main -->
+
 <?php include "./templates/footer.php"; ?>

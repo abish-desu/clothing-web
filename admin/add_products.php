@@ -12,13 +12,8 @@ if (
 }
 ?>
 
-<div class="container-fluid">
-    <div class="row" style="min-height: 1000px">
-        <main class="col-md-9 ms-sm-auto col-lg-18 px-md-4">
-            <h3>Add Product</h3>
-            <div class="table-responsive">
-                <div class="mx-auto container">
-                    <form id="edit-form" enctype="multipart/form-data" method="POST" action="actions/create_products.php">
+<div class="mx-auto" style="max-width:560px;">
+    <form id="edit-form" enctype="multipart/form-data" method="POST" action="actions/create_products.php">
                         <p style="color: red;">
                             <?php if (isset($_GET["error"])) {
                                 echo htmlspecialchars(
@@ -86,12 +81,12 @@ if (
                             />
                         </div>
 
-                        <div class="form-group mt-3">
-                            <input type="submit" name="add_product" class="btn btn-primary" value="Add Product" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </main>
-    </div>
+        <div class="form-group mt-3">
+            <input type="submit" name="add_product" class="btn btn-primary" value="Add Product" />
+        </div>
+    </form>
 </div>
+
+</div><!-- close admin-main -->
+
+<?php include "./templates/footer.php"; ?>

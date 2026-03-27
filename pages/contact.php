@@ -6,7 +6,7 @@ session_start(); ?>
         <meta charset = "utf-8" >
         <meta name = "viewport" content = "width = device-width, initial-scale=1.0">
         <title>Contact</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
         <link rel="stylesheet" href="shop_style.css">
         <style>
 
@@ -122,11 +122,11 @@ form input[type="submit"]:hover {
 </head>
 
     <body>
-        <section id="header">
-        <img src="/PROJECT/images/l3.png" height="40" width="40"><a>
-            <!-- <h>Royal Butterfly</h> -->
-                <div>
-                <ul id="navbar">
+        <header id="header">
+            <a href="home.php" class="nav-logo">
+                <img src="/PROJECT/images/l3.png" alt="Royal Butterfly">
+            </a>
+            <ul id="navbar">
                     <li><a href="home.php">Home</a></li>
                     <li><a href="shop.php">Shop</a></li>
                     <li><a class="active" href="contact.php">Contact</a></li>
@@ -140,7 +140,12 @@ form input[type="submit"]:hover {
                             $count = count($_SESSION["cart"]);
                         }
                         ?>
-                        <a href="mycart.php"><i class="bi bi-cart-plus-fill" style="font-size: 22px;">(<?php echo $count; ?>)</i></a>
+                        <a href="mycart.php" class="cart-link">
+                            <i class="bi bi-cart3"></i>
+                            <?php if (
+                                $count > 0
+                            ): ?><span class="cart-count"><?php echo $count; ?></span><?php endif; ?>
+                        </a>
                     </li>
                     <!-- <li><i class="bi bi-search-heart" style="font-size: 20px;"></i></a></li> -->
                     <!-- <li><a href="mycart.php"><i class="bi bi-cart-plus" style="font-size: 21px;"></i></a></li> -->
@@ -149,15 +154,14 @@ form input[type="submit"]:hover {
                         <?php if (isset($_SESSION["email"])) { ?>
                             <!-- <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li> -->
                             <!-- <li><a href="settings.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li> -->
-                            <a href="logout.php"><i class="bi bi-box-arrow-right"  style="font-size: 22px;"></i></span> Logout</a>
+                            <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
                             <?php } else { ?>
                                 <!-- <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-                            <a href="login.html"><i class="bi bi-person-fill" style="font-size: 22px;"></i> Login</a>
+                            <a href="login.html"><i class="bi bi-person-fill"></i> Login</a>
                             <?php } ?>
                 </li>
                 </ul>
-            </div>
-        </section>
+        </header>
 
         <section id="hero">
             <h1>Contact Us</h1>

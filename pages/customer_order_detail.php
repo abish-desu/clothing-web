@@ -77,204 +77,193 @@ if (isset($_SESSION["cart"]) && is_array($_SESSION["cart"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Order Details</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Order #<?php echo $orderId; ?> — Details</title>
     <link rel="stylesheet" href="styleee.css">
-    <style>
-        .order-summary-card,
-        .order-items-card {
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-        }
-
-        .order-page-title {
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .order-meta-label {
-            font-weight: 600;
-            color: #444;
-        }
-
-        .order-status-badge {
-            text-transform: capitalize;
-            font-size: 14px;
-        }
-
-        .item-thumb {
-            width: 90px;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid #eee;
-        }
-
-        .table td,
-        .table th {
-            vertical-align: middle;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: #ac5930;
-            font-weight: 600;
-        }
-
-        .back-link:hover {
-            color: #8c4724;
-        }
-    </style>
 </head>
 <body>
-    <section id="header">
-        <img src="/PROJECT/images/l3.png" height="40" width="38" alt="Logo"><a href="home.php"></a>
-        <div>
-            <ul id="navbar">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="shop.php">Shop</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a class="active" href="customer_order.php">My Orders</a></li>
-                <li>
-                    <a href="mycart.php">
-                        <i class="bi bi-cart-plus-fill" style="font-size: 22px;">(<?php echo $cartCount; ?>)</i>
-                    </a>
-                </li>
-                <li>
-                    <?php if (isset($_SESSION["email"])) { ?>
-                        <a href="logout.php"><i class="bi bi-box-arrow-right" style="font-size: 22px;"></i> Logout</a>
-                    <?php } else { ?>
-                        <a href="login.html"><i class="bi bi-person-fill" style="font-size: 22px;"></i> Login</a>
-                    <?php } ?>
-                </li>
-            </ul>
-        </div>
-    </section>
 
-    <div class="container py-5">
-        <div class="mb-4">
-            <a class="back-link" href="customer_order.php">
-                <i class="bi bi-arrow-left"></i> Back to My Orders
+<header id="header">
+    <a href="home.php" class="nav-logo">
+        <img src="/PROJECT/images/l3.png" alt="Royal Butterfly">
+    </a>
+    <ul id="navbar">
+        <li><a href="home.php">Home</a></li>
+        <li><a href="shop.php">Shop</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a class="active" href="customer_order.php">My Orders</a></li>
+        <li>
+            <a href="mycart.php" class="cart-link">
+                <i class="bi bi-cart3"></i>
+                <?php if ($cartCount > 0): ?>
+                    <span class="cart-count"><?php echo $cartCount; ?></span>
+                <?php endif; ?>
             </a>
+        </li>
+        <li>
+            <?php if (isset($_SESSION["email"])) { ?>
+                <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            <?php } else { ?>
+                <a href="login.html"><i class="bi bi-person-fill"></i> Login</a>
+            <?php } ?>
+        </li>
+    </ul>
+</header>
+
+<div class="order-detail-wrapper">
+
+    <a href="customer_order.php" class="order-back-link">
+        <i class="bi bi-arrow-left"></i> Back to My Orders
+    </a>
+
+    <?php if ($pageError !== null) { ?>
+        <div class="order-detail-error">
+            <i class="bi bi-exclamation-circle"></i>
+            <?php echo htmlspecialchars($pageError); ?>
         </div>
 
-        <?php if ($pageError !== null) { ?>
-            <div class="alert alert-warning"><?php echo htmlspecialchars(
-                $pageError,
-            ); ?></div>
-        <?php } elseif ($order !== null) { ?>
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="order-summary-card p-4">
-                        <h2 class="order-page-title">Order #<?php echo (int) $order[
-                            "order_id"
-                        ]; ?></h2>
-                        <p class="text-muted mb-4">Placed on <?php echo htmlspecialchars(
-                            $order["order_date"],
-                        ); ?></p>
+    <?php } elseif ($order !== null) {
 
-                        <p class="mb-3">
-                            <span class="order-meta-label">Status:</span>
-                            <span class="badge bg-primary order-status-badge">
-                                <?php echo htmlspecialchars(
-                                    $order["order_status"],
-                                ); ?>
-                            </span>
-                        </p>
+        $status = strtolower(
+            htmlspecialchars($order["order_status"], ENT_QUOTES, "UTF-8"),
+        );
+        $badgeClass = "badge-" . $status;
+        ?>
+        <div class="order-detail-layout">
 
-                        <p class="mb-3">
-                            <span class="order-meta-label">Customer:</span><br>
-                            <?php echo htmlspecialchars($order["name"]); ?>
-                        </p>
+            <!-- ── Left: Order Summary ── -->
+            <div class="order-summary-panel">
+                <h3>Order #<?php echo (int) $order["order_id"]; ?></h3>
+                <span class="order-date-text">
+                    Placed on <?php echo htmlspecialchars(
+                        $order["order_date"],
+                        ENT_QUOTES,
+                        "UTF-8",
+                    ); ?>
+                </span>
 
-                        <p class="mb-3">
-                            <span class="order-meta-label">Phone:</span><br>
-                            <?php echo htmlspecialchars($order["u_phone"]); ?>
-                        </p>
-
-                        <p class="mb-3">
-                            <span class="order-meta-label">Address:</span><br>
-                            <?php echo htmlspecialchars(
-                                $order["user_address"],
-                            ); ?>
-                        </p>
-
-                        <hr>
-
-                        <p class="mb-0">
-                            <span class="order-meta-label">Total:</span>
-                            <strong>Rs <?php echo (int) $order[
-                                "order_price"
-                            ]; ?></strong>
-                        </p>
-                    </div>
+                <div class="order-meta-row">
+                    <span class="order-meta-label">Status</span>
+                    <span class="<?php echo $badgeClass; ?>">
+                        <?php echo ucfirst($status); ?>
+                    </span>
                 </div>
 
-                <div class="col-lg-8">
-                    <div class="order-items-card p-4">
-                        <h3 class="mb-4">Ordered Items</h3>
+                <div class="order-meta-row">
+                    <span class="order-meta-label">Customer</span>
+                    <span class="order-meta-value">
+                        <?php echo htmlspecialchars(
+                            $order["name"],
+                            ENT_QUOTES,
+                            "UTF-8",
+                        ); ?>
+                    </span>
+                </div>
 
-                        <div class="table-responsive">
-                            <table class="table align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while (
-                                        $item = $orderItems->fetch_assoc()
-                                    ) {
+                <div class="order-meta-row">
+                    <span class="order-meta-label">Phone</span>
+                    <span class="order-meta-value">
+                        <?php echo htmlspecialchars(
+                            $order["u_phone"],
+                            ENT_QUOTES,
+                            "UTF-8",
+                        ); ?>
+                    </span>
+                </div>
 
-                                        $price = isset($item["price"])
-                                            ? (int) $item["price"]
-                                            : 0;
-                                        $quantity = isset($item["quantity"])
-                                            ? (int) $item["quantity"]
-                                            : 0;
-                                        $subtotal = $price * $quantity;
-                                        ?>
-                                        <tr>
-                                            <td>
-                                                <img
-                                                    src="<?php echo htmlspecialchars(
-                                                        $item["product_image"],
-                                                    ); ?>"
-                                                    alt="<?php echo htmlspecialchars(
-                                                        $item["product_name"],
-                                                    ); ?>"
-                                                    class="item-thumb"
-                                                >
-                                            </td>
-                                            <td><?php echo htmlspecialchars(
-                                                $item["product_name"],
-                                            ); ?></td>
-                                            <td>Rs <?php echo $price; ?></td>
-                                            <td><?php echo $quantity; ?></td>
-                                            <td>Rs <?php echo $subtotal; ?></td>
-                                        </tr>
-                                    <?php
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="order-meta-row">
+                    <span class="order-meta-label">Delivery Address</span>
+                    <span class="order-meta-value">
+                        <?php echo htmlspecialchars(
+                            $order["user_address"],
+                            ENT_QUOTES,
+                            "UTF-8",
+                        ); ?>
+                    </span>
+                </div>
 
-                        <div class="text-end mt-3">
-                            <h5 class="mb-0">Grand Total: Rs <?php echo (int) $order[
-                                "order_price"
-                            ]; ?></h5>
-                        </div>
-                    </div>
+                <hr class="order-divider">
+
+                <div class="order-meta-row order-total-row">
+                    <span class="order-meta-label">Order Total</span>
+                    <span class="order-meta-value">
+                        Rs <?php echo (int) $order["order_price"]; ?>
+                    </span>
                 </div>
             </div>
-        <?php } ?>
-    </div>
+
+            <!-- ── Right: Ordered Items ── -->
+            <div class="order-items-panel">
+                <h3>Ordered Items</h3>
+
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Unit Price</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($item = $orderItems->fetch_assoc()) {
+
+                            $price = isset($item["price"])
+                                ? (int) $item["price"]
+                                : 0;
+                            $quantity = isset($item["quantity"])
+                                ? (int) $item["quantity"]
+                                : 0;
+                            $subtotal = $price * $quantity;
+                            ?>
+                            <tr>
+                                <td>
+                                    <img
+                                        src="<?php echo htmlspecialchars(
+                                            $item["product_image"],
+                                            ENT_QUOTES,
+                                            "UTF-8",
+                                        ); ?>"
+                                        alt="<?php echo htmlspecialchars(
+                                            $item["product_name"],
+                                            ENT_QUOTES,
+                                            "UTF-8",
+                                        ); ?>"
+                                        class="item-thumb"
+                                    >
+                                </td>
+                                <td>
+                                    <strong><?php echo htmlspecialchars(
+                                        $item["product_name"],
+                                        ENT_QUOTES,
+                                        "UTF-8",
+                                    ); ?></strong>
+                                </td>
+                                <td>Rs <?php echo $price; ?></td>
+                                <td><?php echo $quantity; ?></td>
+                                <td><strong>Rs <?php echo $subtotal; ?></strong></td>
+                            </tr>
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+
+                <div class="items-grand-total">
+                    Grand Total: <strong>Rs <?php echo (int) $order[
+                        "order_price"
+                    ]; ?></strong>
+                </div>
+            </div>
+
+        </div>
+    <?php
+    } ?>
+
+</div>
+
+<footer class="footer">
+    <p>Copyright &copy; 2024. All Rights Reserved.</p>
+</footer>
+
 </body>
 </html>

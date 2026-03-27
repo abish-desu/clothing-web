@@ -4,14 +4,15 @@ session_start(); ?>
 <html>
     <head>
         <title>Shop</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
         <link rel="stylesheet" href="shop_style.css">
     </head>
 <body>
-    <section id="header">
-        <img src="/PROJECT/images/l3.png" height="40" width="38"><a>
-            <div>
-            <ul id="navbar">
+    <header id="header">
+        <a href="home.php" class="nav-logo">
+            <img src="/PROJECT/images/l3.png" alt="Royal Butterfly">
+        </a>
+        <ul id="navbar">
                 <li><a href="home.php">Home</a></li>
                 <li><a class="active" href="shop.php">Shop</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -22,7 +23,12 @@ session_start(); ?>
                         $count = count($_SESSION["cart"]);
                     }
                     ?>
-                    <a href="mycart.php"><i class="bi bi-cart-plus-fill" style="font-size: 22px;">(<?php echo $count; ?>)</i></a>
+                    <a href="mycart.php" class="cart-link">
+                        <i class="bi bi-cart3"></i>
+                        <?php if (
+                            $count > 0
+                        ): ?><span class="cart-count"><?php echo $count; ?></span><?php endif; ?>
+                    </a>
                 </li>
 
                 <li>
@@ -33,14 +39,13 @@ session_start(); ?>
 
                 <li>
                     <?php if (isset($_SESSION["email"])) { ?>
-                            <a href="logout.php"><i class="bi bi-box-arrow-right"  style="font-size: 22px;"></i> Logout</a>
+                            <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
                             <?php } else { ?>
-                            <a href="login.html"><i class="bi bi-person-fill" style="font-size: 22px;"></i> Login</a>
+                            <a href="login.html"><i class="bi bi-person-fill"></i> Login</a>
                             <?php } ?>
                 </li>
             </ul>
-        </div>
-    </section>
+        </header>
 
     <section id="hero">
         <h1>Our Shop</h1>

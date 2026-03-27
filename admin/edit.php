@@ -72,12 +72,7 @@ if (isset($_GET["pid"]) && !empty($_GET["pid"])) {
 }
 ?>
 
-<div class="container-fluid">
-    <div class="row" style="min-height: 1000px">
-        <main class="col-md-9 ms-sm-auto col-lg-18 px-md-4">
-            <h3>Edit Product</h3>
-            <div class="table-responsive">
-                <div class="mx-auto container">
+<div class="mx-auto" style="max-width:580px;">
                     <form id="edit-form" method="POST" action="edit.php">
                         <p style="color: red;">
                             <?php if (isset($_GET["error"])) {
@@ -90,8 +85,10 @@ if (isset($_GET["pid"]) && !empty($_GET["pid"])) {
                         </p>
 
                         <?php if (empty($products)) { ?>
-                            <p style="color: red;">Product not found.</p>
-                            <a href="products.php" class="btn btn-secondary">Back to Products</a>
+                            <div class="alert alert-danger">Product not found.</div>
+                            <a href="products.php" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to Products
+                            </a>
                         <?php } else { ?>
                             <?php foreach ($products as $product) { ?>
                                 <div class="form-group mt-2">
@@ -172,8 +169,8 @@ if (isset($_GET["pid"]) && !empty($_GET["pid"])) {
                             <?php } ?>
                         <?php } ?>
                     </form>
-                </div>
-            </div>
-        </main>
-    </div>
 </div>
+
+</div><!-- close admin-main -->
+
+<?php include "./templates/footer.php"; ?>

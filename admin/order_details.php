@@ -218,4 +218,6 @@ if ($orderId <= 0) {
     </div>
 <?php } ?>
 
+</div><!-- close admin-main -->
+
 <?php include "./templates/footer.php"; ?>
