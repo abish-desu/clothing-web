@@ -1,53 +1,33 @@
-/* globals Chart:false, feather:false */
+/* Admin dashboard — vanilla JS, no jQuery */
 
-(function () {
-  'use strict'
+"use strict";
 
-  feather.replace()
-
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
+document.addEventListener("DOMContentLoaded", function () {
+  /* ── Chart (only runs if the canvas element exists) ────── */
+  var canvas = document.getElementById("myChart");
+  if (canvas && typeof Chart !== "undefined") {
+    new Chart(canvas, {
+      type: "line",
+      data: {
+        labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        datasets: [
+          {
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            lineTension: 0,
+            backgroundColor: "transparent",
+            borderColor: "#3b82f6",
+            borderWidth: 3,
+            pointBackgroundColor: "#3b82f6",
+            pointRadius: 4,
+          },
         ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
       },
-      legend: {
-        display: false
-      }
-    }
-  })
-}())
+      options: {
+        scales: {
+          yAxes: [{ ticks: { beginAtZero: false } }],
+        },
+        legend: { display: false },
+      },
+    });
+  }
+});

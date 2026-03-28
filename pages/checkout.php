@@ -42,7 +42,7 @@ $email = isset($_SESSION["email"]) ? $_SESSION["email"] : "";
                 border: 1px solid black;
                 border-radius: 10px;
             }
-            .container {
+            .checkout-container {
                 width: 40%;
                 margin: 0 auto;
                 padding: 20px;
@@ -107,7 +107,7 @@ $email = isset($_SESSION["email"]) ? $_SESSION["email"] : "";
                 <h2>Checkout</h2>
             </div>
 
-            <div class="container">
+            <div class="checkout-container">
                 <form id="form" name="formlogin" method="post" action="place_order.php" onsubmit="return validateForm()">
                     <div class="form-group">
                         <label>Full Name</label>
